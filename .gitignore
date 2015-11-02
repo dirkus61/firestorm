@@ -4,6 +4,6 @@ test_local.py
 prod_local.py
 out.txt
 Thumbs.db
-/static/user
 base_local.py
 *.db
+*.wpr

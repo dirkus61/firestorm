@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=unused-wildcard-import, wildcard-import
 from __future__ import unicode_literals
-# IMPORTANT NOTE!  YOU MAY NEED TO REFERENCE THIS ON A PYWINTYPES MSSQL ERROR:
-# http://stackoverflow.com/a/7766757
-import datetime
 import os
 import platform
 import sys
@@ -87,7 +84,6 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'webpages._SiteWide.logging_middleware.LoggingMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -103,7 +99,8 @@ ROOT_URLCONF = 'web__django.urls'
 WSGI_APPLICATION = 'web__django.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Put strings here, like "/home/html/django_templates" or
+    # "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     "templates",
@@ -121,7 +118,7 @@ INSTALLED_APPS = (
     'sekizai',
 
     # Site-Specific
-    'webpages._SiteWide',
+    'firestorm',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -151,7 +148,7 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        },#'file': {'level': 'DEBUG','class': 'logging.FileHandler','filename': 'log_%s.txt' % datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S_%f'),'formatter': 'verbose',},
+        },
     },
     'loggers': {
         'django.request': {
@@ -167,8 +164,12 @@ LOGGING = {
 }
 
 LOGIN_URL = '/accounts/login'
+AUTHENTICATION_BACKENDS = ('firestorm.backends.AutoEmailLoginBackend',)
+AUTH_USER_MODEL = 'firestorm.User'
+
 
 TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
     'django.core.context_processors.static',
     'sekizai.context_processors.sekizai',
 )
@@ -176,7 +177,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 EMAIL_HOST = ''
 SMTP_USER = None
 SMTP_PASS = None
-TEST_RUNNER = 'discover_runner.DiscoverRunner'
 
 DEV_SERVICE_TAGS = []
 

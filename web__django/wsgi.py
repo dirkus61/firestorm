@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-import os
-import site
-"""
-WSGI config for django_site project.
+"""WSGI config for django_site project.
 
 This module contains the WSGI application used by Django's development server
 and any production WSGI deployments. It should expose a module-level variable
@@ -16,13 +12,13 @@ that later delegates to the Django one. For example, you could introduce WSGI
 middleware here, or combine a Django application with an application of another
 framework.
 """
-# IMPORTANT NOTE: THE LNDS1 INFRASTRUCTURE IS NOT CURRENTLY USING THIS FILE
-# AT ALL, IN ORDER TO COMBINE WITH THE PHP APPLICATION. THE OTHER WSGI
-# FILE LIVES IN THE HTDOCS FOLDER.
+from __future__ import unicode_literals
+import os
+import site
 
-root_dir = os.path.dirname(os.path.dirname(__file__))
-site.addsitedir(root_dir)
-os.chdir(root_dir)
+ROOT_DIR = os.path.dirname(os.path.dirname(__file__))
+site.addsitedir(ROOT_DIR)
+os.chdir(ROOT_DIR)
 from web__django.settings.settings_base import SETTINGS
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", SETTINGS)
 
